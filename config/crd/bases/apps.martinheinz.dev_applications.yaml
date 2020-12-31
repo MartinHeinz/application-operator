@@ -35,6 +35,8 @@ spec:
             type: object
           spec:
             description: ApplicationSpec defines the desired state of Application
+              TODO Use https://book.kubebuilder.io/cronjob-tutorial/api-design.html
+              when defining fields
             properties:
               replicas:
                 description: Foo is an example field of Application. Edit Application_types.go

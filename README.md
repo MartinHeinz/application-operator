@@ -13,7 +13,9 @@ NAME                                CREATED AT
 applications.apps.martinheinz.dev   2020-12-31T12:07:25Z
 
 # Make sure to export GOROOT and GOPATH
-# export GOROOT=
+# export GOROOT=$HOME/go
+# export GOPATH="$HOME/go"
+# export GOTOOLDIR="/usr/local/go/pkg/tool/linux_amd64"
 
 export USERNAME=martinheinz
 export IMAGE=docker.io/$USERNAME/application-operator:v0.0.1
@@ -28,3 +30,9 @@ NAME                                  READY   STATUS    RESTARTS   AGE
 application-sample-55bf9d85b7-kvh2j   1/1     Running   0          94s
 application-sample-55bf9d85b7-z98sw   1/1     Running   0          94s
 ```
+
+## Issues
+
+- `make test` doesn't work:
+    - `kubebuilder` has to be downloaded and installed using [docs](https://book.kubebuilder.io/quick-start.html#installation) (no need to `export PATH...`)
+    
