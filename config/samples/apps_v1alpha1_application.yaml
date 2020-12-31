@@ -1,0 +1,6 @@
+apiVersion: apps.martinheinz.dev/v1alpha1
+kind: Application
+metadata:
+  name: application-sample
+spec:
+  replicas: 2
