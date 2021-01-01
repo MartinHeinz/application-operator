@@ -39,12 +39,8 @@ spec:
               when defining fields
             properties:
               replicas:
-                description: Foo is an example field of Application. Edit Application_types.go
-                  to remove/update
                 format: int32
                 type: integer
-            required:
-            - replicas
             type: object
           status:
             description: ApplicationStatus defines the observed state of Application

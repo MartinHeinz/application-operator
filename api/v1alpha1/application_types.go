@@ -27,16 +27,16 @@ import (
 // TODO Use https://book.kubebuilder.io/cronjob-tutorial/api-design.html when defining fields
 type ApplicationSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// Important: Run "make manifests" to regenerate code after modifying this file
 
-	// Foo is an example field of Application. Edit Application_types.go to remove/update
-	Replicas int32 `json:"replicas"`
+	// +optional
+	Replicas int32 `json:"replicas,omitempty"`
 }
 
 // ApplicationStatus defines the observed state of Application
 type ApplicationStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	// Important: Run "make manifests" to regenerate code after modifying this file
 	Instances []string `json:"instances"`
 }
 
