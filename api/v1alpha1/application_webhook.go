@@ -45,7 +45,6 @@ var _ webhook.Defaulter = &Application{}
 func (r *Application) Default() {
 	applicationlog.Info("default", "name", r.Name)
 
-	// TODO Test this
 	if r.Spec.Replicas == 0 {
 		r.Spec.Replicas = 1
 	}
