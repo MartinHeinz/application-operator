@@ -120,7 +120,7 @@ func (r *ApplicationReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 	}
 	podNames := getPodNames(podList.Items)
 
-	// Update status.Nodes if needed
+	// Update status.Instances if needed
 	if !reflect.DeepEqual(podNames, application.Status.Instances) {
 		application.Status.Instances = podNames
 		err := r.Status().Update(ctx, application)
@@ -186,8 +186,31 @@ func getPodNames(pods []corev1.Pod) []string {
 	return podNames
 }
 
+var (
+	deploymentOwnerKey = ".metadata.controller"
+	apiGVStr           = appsv1alpha1.GroupVersion.String()
+)
+
 // SetupWithManager sets up the controller with the Manager.
 func (r *ApplicationReconciler) SetupWithManager(mgr ctrl.Manager) error {
+
+	if err := mgr.GetFieldIndexer().IndexField(context.Background(), &appsv1.Deployment{}, deploymentOwnerKey, func(rawObj client.Object) []string {
+		// grab the deployment object, extract the owner...
+		deployment := rawObj.(*appsv1.Deployment)
+		owner := metav1.GetControllerOf(deployment)
+		if owner == nil {
+			return nil
+		}
+		// ...make sure it's a application...
+		if owner.APIVersion != apiGVStr || owner.Kind != "Application" {
+			return nil
+		}
+
+		// ...and if so, return it
+		return []string{owner.Name}
+	}); err != nil {
+		return err
+	}
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&appsv1alpha1.Application{}).
 		Owns(&appsv1.Deployment{}).
