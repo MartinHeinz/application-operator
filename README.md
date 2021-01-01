@@ -48,8 +48,8 @@ make docker-build
 
 # Doesn't work (because of imagePullPolicy?) 
 kind load docker-image martinheinz/application-operator:latest
-make deploy IMG=martinheinz/application-operator:latest
 docker push martinheinz/application-operator:latest
+make deploy IMG=martinheinz/application-operator:latest
 
 kubectl get pods -n application-operator-system
 NAME                                                       READY   STATUS    RESTARTS   AGE
