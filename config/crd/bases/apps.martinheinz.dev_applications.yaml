@@ -47,8 +47,8 @@ spec:
             properties:
               instances:
                 description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
-                  of cluster Important: Run "make" to regenerate code after modifying
-                  this file'
+                  of cluster Important: Run "make manifests" to regenerate code after
+                  modifying this file'
                 items:
                   type: string
                 type: array

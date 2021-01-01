@@ -31,6 +31,35 @@ application-sample-55bf9d85b7-kvh2j   1/1     Running   0          94s
 application-sample-55bf9d85b7-z98sw   1/1     Running   0          94s
 ```
 
+## Testing Webhooks
+
+```shell
+# ... Create Kind Cluster (See above)
+
+# Install cert-manager
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager.yaml
+kubectl get pods --namespace cert-manager
+NAME                                      READY   STATUS    RESTARTS   AGE
+cert-manager-5597cff495-d8mmx             1/1     Running   0          34s
+cert-manager-cainjector-bd5f9c764-mssm2   1/1     Running   0          34s
+cert-manager-webhook-5f57f59fbc-m8j2j     1/1     Running   0          34s
+
+make docker-build
+
+# Doesn't work (because of imagePullPolicy?) 
+kind load docker-image martinheinz/application-operator:latest
+make deploy IMG=martinheinz/application-operator:latest
+docker push martinheinz/application-operator:latest
+
+kubectl get pods -n application-operator-system
+NAME                                                       READY   STATUS    RESTARTS   AGE
+application-operator-controller-manager-6d4878c964-8hqlh   2/2     Running   0          2m48s
+
+kubectl logs application-operator-controller-manager-6d4878c964-8hqlh -n application-operator-system -c manager
+...
+```
+
+
 ## Issues
 
 - `make test` doesn't work:

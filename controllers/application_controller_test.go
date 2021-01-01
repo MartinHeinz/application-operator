@@ -20,7 +20,7 @@ var _ = Describe("Application controller", func() {
 		ApplicationName      = "test-app"
 		ApplicationNamespace = "default"
 
-		timeout  = time.Second * 30
+		timeout  = time.Second * 10
 		interval = time.Millisecond * 250
 	)
 
