@@ -18,9 +18,9 @@ var _ = Describe("Application controller", func() {
 	// Define utility constants for object names and testing.
 	const (
 		ApplicationName      = "test-app"
-		ApplicationNamespace = "test-app-namespace"
+		ApplicationNamespace = "default"
 
-		timeout  = time.Second * 10
+		timeout  = time.Second * 30
 		interval = time.Millisecond * 250
 	)
 
@@ -53,7 +53,7 @@ var _ = Describe("Application controller", func() {
 				}
 				return true
 			}, timeout, interval).Should(BeTrue())
-			Expect(createdApplication.Spec.Replicas).Should(Equal(2))
+			Expect(createdApplication.Spec.Replicas).Should(Equal(int32(2)))
 
 		})
 	})
